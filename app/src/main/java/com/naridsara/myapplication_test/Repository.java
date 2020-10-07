@@ -15,6 +15,9 @@ public class Repository {
 
     private MutableLiveData<Objects> _register=new MutableLiveData<>();
     private MutableLiveData<Boolean> _validateUsername=new MutableLiveData<>();
+    private MutableLiveData<Boolean> _validateTel=new MutableLiveData<>();
+    private MutableLiveData<Boolean> _validateEmail=new MutableLiveData<>();
+
 
     LiveData<Objects> register(){
         return _register;
@@ -22,6 +25,12 @@ public class Repository {
 
     LiveData<Boolean> validateUsername(){
         return _validateUsername;
+    }
+    LiveData<Boolean> validateTel(){
+        return _validateTel;
+    }
+    LiveData<Boolean> validateEmail(){
+        return _validateEmail;
     }
 
     void validateUsername(String username){
@@ -36,6 +45,25 @@ public class Repository {
                                 _validateUsername.setValue(true);
                             }else{
                                 _validateUsername.setValue(false);
+                            }
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+    void validateEmail(String email){
+        String sql=" SELECT * FROM `customer` WHERE `customer_email` = '"+email+"'";
+        Dru.connection(ConnectDB.getConnection())
+                .execute(sql)
+                .commit(new ExecuteQuery() {
+                    @Override
+                    public void onComplete(ResultSet resultSet) {
+                        try {
+                            if(resultSet.next()){
+                                _validateEmail.setValue(true);
+                            }else {
+                                _validateEmail.setValue(false);
                             }
                         } catch (SQLException e) {
                             e.printStackTrace();

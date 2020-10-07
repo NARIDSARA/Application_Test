@@ -20,6 +20,9 @@ public class RegisterViewModel extends ViewModel {
     LiveData<Boolean> validateUsername(){
         return repository.validateUsername();
     }
+    LiveData<Boolean> validateEmail(){
+        return repository.validateEmail();
+    }
 
     void register(String name, String surname, String username, String email, String password, String tel, String housenumber, String moo, String district, String subdistrict, String province, String postalcode) {
         repository.register(name, surname, username, email, password, tel, housenumber, moo, district, subdistrict, province, postalcode);
@@ -27,6 +30,9 @@ public class RegisterViewModel extends ViewModel {
 
     void validateUsername(String username) {
         repository.validateUsername(username);
+    }
+    void validateEmail(String email) {
+        repository.validateEmail(email);
     }
 
 }

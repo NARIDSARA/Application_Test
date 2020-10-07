@@ -59,7 +59,8 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        viewModel.validateUsername().observe(this, new Observer<Boolean>() {
+        viewModel.
+                validateUsername().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
                 String customer_name = edtName.getText().toString().trim();
@@ -77,6 +78,32 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if (aBoolean){
                     Toast.makeText(getBaseContext(), "Username repeat", Toast.LENGTH_SHORT).show();
+                }else {
+                    viewModel.validateEmail(customer_email);
+                    //viewModel.register(customer_name, customer_surname, customer_username, customer_email, customer_password, customer_tel, customer_housenumber, customer_moo, customer_district, customer_subdistrict, customer_province, customer_postalcode);
+                }
+
+
+            }
+        });
+        viewModel.validateEmail().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                String customer_name = edtName.getText().toString().trim();
+                String customer_surname = edtSurname.getText().toString().trim();
+                String customer_username = edtUsername.getText().toString().trim();
+                String customer_email = edtEmail.getText().toString().trim();
+                String customer_tel = edtTel.getText().toString().trim();
+                String customer_housenumber = edtHousenumber.getText().toString().trim();
+                String customer_moo = edtMoo.getText().toString().trim();
+                String customer_district = edtDistrict.getText().toString().trim();
+                String customer_subdistrict = edtSubDistrict.getText().toString().trim();
+                String customer_province = edtProvince.getText().toString().trim();
+                String customer_postalcode = edtPostalcode.getText().toString().trim();
+                String customer_password = edtPassword.getText().toString().trim();
+
+                if (aBoolean){
+                    Toast.makeText(getBaseContext(), "Email repeat", Toast.LENGTH_SHORT).show();
                 }else {
                     viewModel.register(customer_name, customer_surname, customer_username, customer_email, customer_password, customer_tel, customer_housenumber, customer_moo, customer_district, customer_subdistrict, customer_province, customer_postalcode);
                 }
