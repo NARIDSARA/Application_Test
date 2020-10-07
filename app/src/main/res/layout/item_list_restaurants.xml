@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="4dp"
+    android:layout_marginTop="4dp"
+    android:gravity="center_horizontal">
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@mipmap/ic_launcher"
+        android:id="@+id/mIv_Pic_restaurants"/>
+    <TextView
+        android:id="@+id/tv_Restaurants_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Restaurants_name"/>
+<!--    <TextView-->
+<!--        android:id="@+id/tv_Restaurants_type"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Restaurants_type"/>-->
+    <TextView
+        android:id="@+id/tv_Restaurants_latitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Restaurants_latitude"/>
+    <TextView
+        android:id="@+id/tv_Restaurants_longitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Restaurants_longitude"/>
+
+
+</LinearLayout>
