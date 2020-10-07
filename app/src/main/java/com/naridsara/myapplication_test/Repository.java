@@ -20,10 +20,15 @@ public class Repository {
     private MutableLiveData<Boolean> _responseValidateUsername =new MutableLiveData<>();
     private MutableLiveData<Boolean> _responseValidateTel =new MutableLiveData<>();
     private MutableLiveData<Boolean> _responseValidateEmail =new MutableLiveData<>();
+    private MutableLiveData<Boolean> _responseLogin = new MutableLiveData<>();
+
 
 
     LiveData<Objects> responseRegister(){
         return _responseRegister;
+    }
+    LiveData<Boolean> responseLogin(){
+        return _responseLogin;
     }
 
     LiveData<Boolean> responseValidateUsername(){
@@ -35,6 +40,7 @@ public class Repository {
     LiveData<Boolean> responseValidateEmail(){
         return _responseValidateEmail;
     }
+
 
     void requestValidateUsername(String username){
         String sql = "SELECT * FROM `customer` WHERE `customer_username` = '"+username+"'";
@@ -108,6 +114,26 @@ public class Repository {
                     @Override
                     public void onComplete() {
                         _responseRegister.setValue(null);
+                    }
+                });
+    }
+
+    void requestLogin(String username,String password){
+        String sql="SELECT * FROM customer WHERE `customer_username`= '"+username+"' AND `customer_password` = '"+password+"'";
+        Dru.connection(ConnectDB.getConnection())
+                .execute(sql)
+                .commit(new ExecuteQuery() {
+                    @Override
+                    public void onComplete(ResultSet resultSet) {
+                        try {
+                           if(resultSet.next()){
+                               _responseLogin.setValue(true);
+                           }else {
+                               _responseLogin.setValue(false);
+                           }
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
     }

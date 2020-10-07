@@ -18,7 +18,6 @@ public class RegisterViewModel extends ViewModel {
     LiveData<Objects> responseRegister() {
         return repository.responseRegister();
     }
-
     LiveData<Boolean> responseValidateUsername() {
         return repository.responseValidateUsername();
     }
