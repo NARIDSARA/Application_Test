@@ -4,16 +4,44 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.adedom.library.Dru;
+import com.adedom.library.ExecuteQuery;
 import com.adedom.library.ExecuteUpdate;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class Repository {
 
     private MutableLiveData<Objects> _register=new MutableLiveData<>();
+    private MutableLiveData<Boolean> _validateUsername=new MutableLiveData<>();
 
     LiveData<Objects> register(){
         return _register;
+    }
+
+    LiveData<Boolean> validateUsername(){
+        return _validateUsername;
+    }
+
+    void validateUsername(String username){
+        String sql = "SELECT * FROM `customer` WHERE `customer_username` = '"+username+"'";
+        Dru.connection(ConnectDB.getConnection())
+                .execute(sql)
+                .commit(new ExecuteQuery() {
+                    @Override
+                    public void onComplete(ResultSet resultSet) {
+                        try {
+                            if (resultSet.next()){
+                                _validateUsername.setValue(true);
+                            }else{
+                                _validateUsername.setValue(false);
+                            }
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     void register(String name,String surname,String username,String email,String password,String tel,String housenumber,String moo,String district, String subdistrict,String province,String postalcode){

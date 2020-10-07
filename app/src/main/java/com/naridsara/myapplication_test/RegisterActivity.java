@@ -38,30 +38,30 @@ public class RegisterActivity extends AppCompatActivity {
 
         viewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
 
-        btRegister = (Button)findViewById(R.id.Btn_Register);
-        edtName = (EditText)findViewById(R.id.Edt_Name);
-        edtSurname =(EditText)findViewById(R.id.Edt_SurName);
-        edtUsername =(EditText)findViewById(R.id.Edt_UserName);
-        edtEmail =(EditText)findViewById(R.id.Edt_email);
-        edtPassword =(EditText)findViewById(R.id.Edt_password);
-        edtTel =(EditText)findViewById(R.id.Edt_Tel);
-        edtHousenumber =(EditText)findViewById(R.id.Edt_HouseNumber);
-        edtMoo =(EditText)findViewById(R.id.Edt_Moo);
-        edtDistrict =(EditText)findViewById(R.id.Edt_District);
-        edtSubDistrict =(EditText)findViewById(R.id.Edt_SubDistrict);
-        edtProvince =(EditText)findViewById(R.id.Edt_province);
-        edtPostalcode =(EditText)findViewById(R.id.Edt_PostalCode);
+        btRegister = (Button) findViewById(R.id.Btn_Register);
+        edtName = (EditText) findViewById(R.id.Edt_Name);
+        edtSurname = (EditText) findViewById(R.id.Edt_SurName);
+        edtUsername = (EditText) findViewById(R.id.Edt_UserName);
+        edtEmail = (EditText) findViewById(R.id.Edt_email);
+        edtPassword = (EditText) findViewById(R.id.Edt_password);
+        edtTel = (EditText) findViewById(R.id.Edt_Tel);
+        edtHousenumber = (EditText) findViewById(R.id.Edt_HouseNumber);
+        edtMoo = (EditText) findViewById(R.id.Edt_Moo);
+        edtDistrict = (EditText) findViewById(R.id.Edt_District);
+        edtSubDistrict = (EditText) findViewById(R.id.Edt_SubDistrict);
+        edtProvince = (EditText) findViewById(R.id.Edt_province);
+        edtPostalcode = (EditText) findViewById(R.id.Edt_PostalCode);
 
         viewModel.register().observe(this, new Observer<Objects>() {
             @Override
             public void onChanged(Objects objects) {
-                Toast.makeText(getBaseContext(),"Register success",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Register success", Toast.LENGTH_SHORT).show();
             }
         });
 
-        btRegister.setOnClickListener(new View.OnClickListener() {
+        viewModel.validateUsername().observe(this, new Observer<Boolean>() {
             @Override
-            public void onClick(View v) {
+            public void onChanged(Boolean aBoolean) {
                 String customer_name = edtName.getText().toString().trim();
                 String customer_surname = edtSurname.getText().toString().trim();
                 String customer_username = edtUsername.getText().toString().trim();
@@ -75,12 +75,25 @@ public class RegisterActivity extends AppCompatActivity {
                 String customer_postalcode = edtPostalcode.getText().toString().trim();
                 String customer_password = edtPassword.getText().toString().trim();
 
+                if (aBoolean){
+                    Toast.makeText(getBaseContext(), "Username repeat", Toast.LENGTH_SHORT).show();
+                }else {
+                    viewModel.register(customer_name, customer_surname, customer_username, customer_email, customer_password, customer_tel, customer_housenumber, customer_moo, customer_district, customer_subdistrict, customer_province, customer_postalcode);
+                }
 
-                viewModel.register(customer_name,customer_surname,customer_username,customer_email,customer_password,customer_tel,customer_housenumber,customer_moo,customer_district,customer_subdistrict,customer_province,customer_postalcode);
+
+            }
+        });
+
+        btRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String customer_username = edtUsername.getText().toString().trim();
+
+                viewModel.validateUsername(customer_username);
             }
 
         });
-
 
 
     }
