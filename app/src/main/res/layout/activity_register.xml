@@ -37,6 +37,11 @@
         android:layout_height="wrap_content"
         android:hint="Please enter UserName"
         android:id="@+id/Edt_UserName"/>
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:hint="Please enter email"
+                android:id="@+id/Edt_email"/>
     <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
