@@ -3,11 +3,11 @@ package com.naridsara.myapplication_test.model;
 public class Restaurants {
     private int restaurantsId;
     private String restaurantsName;
-    private Double restaurantsLatitude;
-    private Double restaurantsLongitude;
+    private double restaurantsLatitude;
+    private double restaurantsLongitude;
     private String restaurantsImage;
 
-    public Restaurants(int restaurantsId, String restaurantsName, Double restaurantsLatitude, Double restaurantsLongitude, String restaurantsImage) {
+    public Restaurants(int restaurantsId, String restaurantsName, double restaurantsLatitude, double restaurantsLongitude, String restaurantsImage) {
         this.restaurantsId = restaurantsId;
         this.restaurantsName = restaurantsName;
         this.restaurantsLatitude = restaurantsLatitude;
@@ -31,19 +31,19 @@ public class Restaurants {
         this.restaurantsName = restaurantsName;
     }
 
-    public Double getRestaurantsLatitude() {
+    public double getRestaurantsLatitude() {
         return restaurantsLatitude;
     }
 
-    public void setRestaurantsLatitude(Double restaurantsLatitude) {
+    public void setRestaurantsLatitude(double restaurantsLatitude) {
         this.restaurantsLatitude = restaurantsLatitude;
     }
 
-    public Double getRestaurantsLongitude() {
+    public double getRestaurantsLongitude() {
         return restaurantsLongitude;
     }
 
-    public void setRestaurantsLongitude(Double restaurantsLongitude) {
+    public void setRestaurantsLongitude(double restaurantsLongitude) {
         this.restaurantsLongitude = restaurantsLongitude;
     }
 

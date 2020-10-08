@@ -24,6 +24,8 @@ public class Repository {
     private MutableLiveData<Boolean> _responseValidateEmail = new MutableLiveData<>();
     private MutableLiveData<Boolean> _responseLogin = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Restaurants>> _responseRestaurants = new MutableLiveData<>();
+    private MutableLiveData<Restaurants> _responseRestaurantsDetail = new MutableLiveData<>();
+
 
 
     LiveData<Objects> responseRegister() {
@@ -48,6 +50,9 @@ public class Repository {
 
     LiveData<ArrayList<Restaurants>> responseRestaurants() {
         return _responseRestaurants;
+    }
+    LiveData<Restaurants> responseRestaurantsDetail() {
+        return _responseRestaurantsDetail;
     }
 
 
@@ -175,6 +180,38 @@ public class Repository {
                         }
                     }
                 });
+    }
+
+    void requestRestaurantsDetail(int Restaurants_id) {
+        String sql = "SELECT `Restaurants_Id`, `Restaurants_Name`,  `Restaurants_Latitude`, `Restaurants_Longitude`, `Restaurants_Image` FROM `restaurants` WHERE `Restaurants_Id`= '" + Restaurants_id + "'";
+        Dru.connection(ConnectDB.getConnection())
+                .execute(sql)
+                .commit(new ExecuteQuery() {
+                    @Override
+                    public void onComplete(ResultSet resultSet) {
+                        try {
+                            Restaurants restaurants = null;
+                            if (resultSet.next()){
+                                restaurants = new Restaurants(
+                                        resultSet.getInt(1),
+                                        resultSet.getString(2),
+                                        resultSet.getDouble(3),
+                                        resultSet.getDouble(4),
+                                        resultSet.getString(5)
+                                );
+//                                Log.d(TAG, "onComplete: resultSet next"+resultSet.getInt(1));
+//                                Log.d(TAG, "onComplete: resultSet next"+resultSet.getString(2));
+//                                Log.d(TAG, "onComplete: resultSet next"+resultSet.getDouble(3));
+//                                Log.d(TAG, "onComplete: resultSet next"+resultSet.getDouble(4));
+//                                Log.d(TAG, "onComplete: resultSet next"+resultSet.getString(5));
+                            }
+                            _responseRestaurantsDetail.setValue(restaurants);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
     }
 
 }

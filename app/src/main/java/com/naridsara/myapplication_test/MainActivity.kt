@@ -37,7 +37,12 @@ class MainActivity : BaseActivity() {
             adapter = adt
         }
         adt.onClick = {
-            toast(it.restaurantsName)
+            //toast(it.restaurantsName)
+            startActivity(Intent(baseContext, RestaurantsDetailActivity::class.java))
+            Intent(baseContext, RestaurantsDetailActivity::class.java).apply {
+                putExtra("Restaurants_id",it.restaurantsId)
+                startActivity(this)
+            }
         }
 
         viewModel.responseRestaurants().observe {
