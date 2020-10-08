@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.adedom.library.Dru
 import com.naridsara.myapplication_test.model.Restaurants
 import kotlinx.android.synthetic.main.activity_main.*
@@ -29,12 +31,22 @@ class MainActivity : BaseActivity() {
         Btn_Add_Restaurants.setOnClickListener {
             startActivity(Intent(baseContext, AddRestaurantsActivity::class.java))
         }
+        val adt = RestaurantsAdapter()
+        recyclerView.apply {
+            layoutManager = LinearLayoutManager(baseContext)
+            adapter = adt
+        }
+        adt.onClick = {
+            toast(it.restaurantsName)
+        }
 
         viewModel.responseRestaurants().observe {
-            Log.d(TAG, "onCreate: $it")
-            it.forEach {
-                Log.d(TAG, "onCreate: ${it.restaurantsName}")
-            }
+//            Log.d(TAG, "onCreate: $it")
+//            it.forEach {
+//                Log.d(TAG, "onCreate: ${it.restaurantsName}")
+//
+//            }
+            adt.setList(it)
         }
     }
 
